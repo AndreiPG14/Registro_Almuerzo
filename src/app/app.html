@@ -1,0 +1,31 @@
+<p-toast></p-toast>
+
+<div style="width: 500px;">
+    
+<zxing-scanner
+  #scanner
+  [device]="currentDevice"
+  (camerasFound)="displayCameras($event)"
+  (scanSuccess)="onScan($event)">
+</zxing-scanner>
+</div>
+<div *ngIf="trabajador">
+  <h2>✅ Trabajador encontrado:</h2>
+  <p><strong>DNI:</strong> {{ trabajador.IDCODIGOGENERAL.trim() }}</p>
+  <p><strong>Nombre:</strong> {{ trabajador.APENOM.trim() }}</p>
+  <p><strong>Sexo:</strong> {{ trabajador.SEXO.trim() }}</p>
+  <p><strong>Planilla:</strong> {{ trabajador.ID_PLANILLA }}</p>
+  <p><strong>Asignación:</strong> {{ trabajador.ASIGNACION.trim() }}</p>
+  <p><strong>Fecha ingreso:</strong> {{ trabajador.FECHA_INGRESO }}</p>
+</div>
+<div class="dni-manual">
+  <input [(ngModel)]="dniManual" placeholder="Ingrese DNI manualmente" />
+  <button pButton type="button" label="Buscar" (click)="buscarPorDni()"></button>
+</div>
+
+<!-- Si no se encontró -->
+<div *ngIf="notFound && !trabajador">
+  <h2>❌ Trabajador no encontrado</h2>
+</div>
+
+<router-outlet />
